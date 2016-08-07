@@ -1925,26 +1925,14 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-CM_TARGET_PACKAGE := $(PRODUCT_OUT)/$(CM_VERSION).zip
+CM_TARGET_PACKAGE := $(PRODUCT_OUT)/cm-$(CM_VERSION).zip
 
-BOOT_ZIP_FROM_IMAGE_SCRIPT := ./build/tools/releasetools/boot_flash_from_image
-KERNEL_PATH := $(TARGET_KERNEL_SOURCE)/arch/arm/configs/$(TARGET_KERNEL_CONFIG)
-
-.PHONY: bootzip otapackage bacon
-bootzip: bootimage
-	$(BOOT_ZIP_FROM_IMAGE_SCRIPT) \
-	   $(recovery_fstab) \
-	   $(OUT) \
-	   $(TARGET_DEVICE)
-
+.PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(CM_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(CM_TARGET_PACKAGE) > $(CM_TARGET_PACKAGE).md5sum
-	$(hide) ./vendor/cm/tools/rr.sh
 	@echo -e ${CL_CYN}"Package Complete: $(CM_TARGET_PACKAGE)"${CL_RST}
-	@echo -e ${CL_CYN}"FileSize in MB : `ls -lh $(CM_TARGET_PACKAGE) | cut -d ' ' -f 5`"
-	@echo -e ${CL_CYN}"FileSize in Bytes : `ls -l $(CM_TARGET_PACKAGE) | cut -d ' ' -f 5`"
 
 # -----------------------------------------------------------------
 # The factory package
@@ -2284,3 +2272,4 @@ endif
 ifneq ($(sdk_repo_goal),)
 include $(TOPDIR)development/build/tools/sdk_repo.mk
 endif
+
