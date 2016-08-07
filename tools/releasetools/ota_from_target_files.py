@@ -646,6 +646,27 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.Unmount("/data")
     script.AppendExtra("endif;")
 
+  script.Print(" ")
+  script.Print(" ")
+  script.Print(" ")
+  script.Print(" RRRRRRRRRRRRRRRRR     RRRRRRRRRRRRRRRRR   ")
+  script.Print(" R::::::::::::::::R    R::::::::::::::::R  ")
+  script.Print(" R::::::RRRRRR:::::R   R::::::RRRRRR:::::R ")
+  script.Print(" RR:::::R     R:::::R  RR:::::R     R:::::R")
+  script.Print("   R::::R     R:::::R    R::::R     R:::::R")
+  script.Print("   R::::R     R:::::R    R::::R     R:::::R")
+  script.Print("   R::::RRRRRR:::::R     R::::RRRRRR:::::R ")
+  script.Print("   R:::::::::::::RR      R:::::::::::::RR  ")
+  script.Print("   R::::RRRRRR:::::R     R::::RRRRRR:::::R ")
+  script.Print("   R::::R     R:::::R    R::::R     R:::::R")
+  script.Print("   R::::R     R:::::R    R::::R     R:::::R")
+  script.Print("   R::::R     R:::::R    R::::R     R:::::R")
+  script.Print(" RR:::::R     R:::::R  RR:::::R     R:::::R")
+  script.Print(" R::::::R     R:::::R  R::::::R     R:::::R")
+  script.Print(" R::::::R     R:::::R  R::::::R     R:::::R")
+  script.Print(" RRRRRRRR     RRRRRRR  RRRRRRRR     RRRRRRR")
+  script.Print("                          ")
+  script.Print(" ")
   if "selinux_fc" in OPTIONS.info_dict:
     WritePolicyConfig(OPTIONS.info_dict["selinux_fc"], output_zip)
 
@@ -730,6 +751,8 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.AppendExtra(OPTIONS.extra_script)
 
   script.UnmountAll()
+  
+  device_specific.FullOTA_InstallPostEnd()
 
   if OPTIONS.wipe_user_data:
     script.ShowProgress(0.1, 10)
